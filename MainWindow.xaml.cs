@@ -25,7 +25,14 @@ namespace WinUINotes
     {
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+
+            // ↓ 添加了这些内容 ↓
+            // 隐藏默认系统标题栏
+            ExtendsContentIntoTitleBar = true;
+            // 用 WinUI TitleBar 替换系统标题栏
+            SetTitleBar(AppTitleBar);
+            // ↑ 添加了这些内容 ↑
         }
     }
 }
