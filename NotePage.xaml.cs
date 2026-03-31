@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -19,20 +20,18 @@ using Windows.Foundation.Collections;
 namespace WinUINotes
 {
     /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainWindow : Window
+    public sealed partial class NotePage : Page
     {
-        public MainWindow()
+        // ↓ 添加了这些内容 ↓
+        private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+        private StorageFile? noteFile = null;
+        private string fileName = "note.txt";
+        // ↑ 添加了这些内容 ↑
+        public NotePage()
         {
             InitializeComponent();
-
-            // ↓ 添加了这些内容 ↓
-            // 隐藏默认系统标题栏
-            ExtendsContentIntoTitleBar = true;
-            // 用 WinUI TitleBar 替换系统标题栏
-            SetTitleBar(AppTitleBar);
-            // ↑ 添加了这些内容 ↑
         }
     }
 }

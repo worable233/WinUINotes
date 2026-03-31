@@ -12,14 +12,20 @@
     <Window.SystemBackdrop>
         <MicaBackdrop Kind="Base"/>
     </Window.SystemBackdrop>
-
+    <!-- Grid 是布局容器，用于规定子元素的行列位置 -->
     <Grid>
+        <!-- Grid.RowDefinitions 定义网格的行 -->
         <Grid.RowDefinitions>
-            <!-- Title Bar -->
+            <!-- 标题栏行：高度自适应（Auto） -->
+            <!-- 从上往下定义，现在规定第0行的高度 -->
             <RowDefinition Height="Auto" />
-            <!-- App Content -->
+            <!-- 内容行：占满剩余的所有空间（*） -->
+            <!-- 从上往下定义，现在规定第1行的高度 -->
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
+        <!-- 以下为子元素（也就是内容） -->
+        <!-- 现在是第一个子元素，没写Grid.Row属性默认放在第0行 -->
         <TitleBar x:Name="AppTitleBar"
               Title="WinUI Notes">
             <TitleBar.IconSource>
@@ -27,7 +33,8 @@
             </TitleBar.IconSource>
         </TitleBar>
 
-        <!-- App content -->
-        <Frame x:Name="rootFrame" Grid.Row="1"/>
+        <!-- 内容 -->
+        <!-- 现在是第二个子元素，Grid.Row属性为1放在第1行 -->
+        <Frame x:Name="rootFrame" Grid.Row="1" SourcePageType="local:NotePage"/>
     </Grid>
 </Window>
