@@ -31,7 +31,20 @@ namespace WinUINotes
         // ↑ 添加了这些内容 ↑
         public NotePage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+            // ↓ 之前的内容是存在的，只需要添加这一行即可 ↓
+            Loaded += NotePage_Loaded;
+            // ↑ 之前的内容是存在的，只需要添加这一行即可 ↑
+        }
+
+        // ↓ 添加事件处理程序函数 ↓
+        private async void NotePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            noteFile = (StorageFile)await storageFolder.TryGetItemAsync(fileName);
+            if (noteFile is not null)
+            {
+                NoteEditor.Text = await FileIO.ReadTextAsync(noteFile);
+            }
         }
     }
 }
