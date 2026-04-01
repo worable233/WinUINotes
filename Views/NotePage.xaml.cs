@@ -17,7 +17,7 @@ using Windows.Storage;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace WinUINotes
+namespace WinUINotes.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -44,6 +44,25 @@ namespace WinUINotes
             if (noteFile is not null)
             {
                 NoteEditor.Text = await FileIO.ReadTextAsync(noteFile);
+            }
+        }
+
+        private async void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (noteFile is null)
+            {
+                noteFile = await storageFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+            }
+            await FileIO.WriteTextAsync(noteFile, NoteEditor.Text);
+        }
+
+        private async void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (noteFile is not null)
+            {
+                await noteFile.DeleteAsync();
+                noteFile = null;
+                NoteEditor.Text = string.Empty;
             }
         }
     }

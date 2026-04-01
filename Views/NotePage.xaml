@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
-    x:Class="WinUINotes.NotePage"
+    x:Class="WinUINotes.Views.NotePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:WinUINotes"
@@ -33,9 +33,9 @@
             Spacing="4"
             Grid.Row="1" Grid.Column="1">
             <!-- 保存按钮 -->
-            <Button Content="保存" Style="{StaticResource AccentButtonStyle}"/>
+            <Button Content="保存" Style="{StaticResource AccentButtonStyle}" Click="saveButton_Click"/>
             <!-- 删除按钮 -->
-            <Button Content="删除"/>
-        </StackPanel>
+            <Button Content="删除" Click="deleteButton_Click"/>
+        </StackPanel>   
     </Grid>
 </Page>
