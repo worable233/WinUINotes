@@ -13,6 +13,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+// ↓ 添加了这些内容 ↓
+using WinUINotes.Models;
+// ↑ 添加了这些内容 ↑
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -24,11 +27,9 @@ namespace WinUINotes.Views
     /// </summary>
     public sealed partial class NotePage : Page
     {
-        // ↓ 添加了这些内容 ↓
-        private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-        private StorageFile? noteFile = null;
-        private string fileName = "note.txt";
-        // ↑ 添加了这些内容 ↑
+
+        private Note? noteModel;
+
         public NotePage()
         {
             this.InitializeComponent();
@@ -37,32 +38,20 @@ namespace WinUINotes.Views
             // ↑ 之前的内容是存在的，只需要添加这一行即可 ↑
         }
 
-        // ↓ 添加事件处理程序函数 ↓
-        private async void NotePage_Loaded(object sender, RoutedEventArgs e)
-        {
-            noteFile = (StorageFile)await storageFolder.TryGetItemAsync(fileName);
-            if (noteFile is not null)
-            {
-                NoteEditor.Text = await FileIO.ReadTextAsync(noteFile);
-            }
-        }
 
         private async void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (noteFile is null)
+            if (noteModel is not null)
             {
-                noteFile = await storageFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+                await noteModel.SaveAsync();
             }
-            await FileIO.WriteTextAsync(noteFile, NoteEditor.Text);
         }
 
         private async void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (noteFile is not null)
+            if (noteModel is not null)
             {
-                await noteFile.DeleteAsync();
-                noteFile = null;
-                NoteEditor.Text = string.Empty;
+                await noteModel.DeleteAsync();
             }
         }
     }
